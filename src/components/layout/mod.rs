@@ -12,8 +12,8 @@ pub mod config;
 use std::hash::{DefaultHasher, Hash, Hasher};
 
 use leptos::*;
-use leptos_meta::Body;
-use leptos_router::Outlet;
+use leptos_meta::*;
+use leptos_router::*;
 
 use crate::{
     components::{
@@ -28,8 +28,30 @@ use crate::{
 
 use header::Header;
 use sidebar::SideBar;
-use toggle::Toggle;
+use toggle::ToggleNavigation as Toggle;
 use config::LayoutConfig;
+
+use crate::components::icon::{
+    IconAdjustmentsHorizontal,
+    IconBeaker,
+    IconChartBarSquare,
+    IconCircleStack,
+    IconCog6Tooth,
+    IconCommandLine,
+    IconCube,
+    IconDocumentText,
+    IconFolder,
+    IconGlobeAlt,
+    IconKey,
+    IconLockClosed,
+    IconMail,
+    IconQueueList,
+    IconServer,
+    IconShieldCheck,
+    IconUser,
+    IconUsers,
+    IconWrenchScrewdriver,
+};
 
 pub struct LayoutBuilder {
     pub menu_items: Vec<MenuItem>,

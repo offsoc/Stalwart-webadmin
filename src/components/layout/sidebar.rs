@@ -5,7 +5,9 @@
  */
 
 use leptos::*;
-use leptos_router::use_location;
+use leptos_meta::*;
+use leptos_router::*;
+use gloo_storage::{LocalStorage, Storage};
 use super::config::LayoutConfig;
 
 use crate::VERSION_NAME;
@@ -15,12 +17,11 @@ use super::MenuItem;
 #[component]
 pub fn SideBar(menu_items: Vec<MenuItem>, show_sidebar: RwSignal<bool>) -> impl IntoView {
     let current_route = create_memo(move |_| use_location().pathname.get());
-    let (config, _) = create_signal(LayoutConfig::default());
+    let (config, set_config) = create_signal(LayoutConfig::default());
 
-    // Load config from storage
     create_effect(move |_| {
-        if let Ok(stored_config) = gloo_storage::LocalStorage::get::<LayoutConfig>("layout_config") {
-            config.set(stored_config);
+        if let Ok(stored_config) = LocalStorage::get::<LayoutConfig>("layout_config") {
+            set_config.set(stored_config);
         }
     });
 

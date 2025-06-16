@@ -30,6 +30,27 @@ use ahash::AHashMap;
 use humansize::{format_size, DECIMAL};
 use leptos::view;
 use serde::{Deserialize, Serialize};
+use leptos::*;
+use leptos_meta::*;
+use leptos_router::*;
+use crate::components::icon::{
+    IconCircleStack,
+    IconCog6Tooth,
+    IconCommandLine,
+    IconCube,
+    IconDocumentText,
+    IconFolder,
+    IconGlobeAlt,
+    IconLockClosed,
+    IconMail,
+    IconQueueList,
+    IconServer,
+    IconShieldCheck,
+    IconUser,
+    IconUsers,
+    IconWrenchScrewdriver,
+};
+use crate::types::Permissions;
 
 pub type Settings = AHashMap<String, String>;
 

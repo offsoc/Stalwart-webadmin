@@ -1,8 +1,22 @@
-use gloo_storage::{LocalStorage, Storage};
 use leptos::*;
+use leptos_meta::*;
+use leptos_router::*;
+use web_sys::{FileReader, HtmlInputElement};
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+use js_sys::JsString;
+use gloo_storage::{LocalStorage, Storage};
 use serde::{Deserialize, Serialize};
-use web_sys::{File, FileReader, HtmlInputElement};
-use crate::components::icon::{IconAdjustmentsHorizontal, IconPencilSquare, IconXMark, IconEye, IconEyeSlash, IconArrowUpTray, IconArrowPath, IconSpinner};
+use crate::components::icon::{
+    IconAdjustmentsHorizontal,
+    IconPencilSquare,
+    IconXMark,
+    IconEye,
+    IconEyeSlash,
+    IconArrowUpTray,
+    IconArrowPath,
+    IconSpinner,
+};
 use crate::utils::storage::LocalStorage;
 use crate::utils::validation::{validate_url, sanitize_input};
 use crate::utils::security::{generate_csrf_token, validate_csrf_token, check_rate_limit};
@@ -255,7 +269,7 @@ pub fn LayoutConfig() -> impl IntoView {
                         <div class="flex items-center gap-x-3">
                             <IconAdjustmentsHorizontal class="size-6 text-gray-800 dark:text-gray-200"/>
                             <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                                Layout Configuration
+                                "Layout Configuration"
                             </h2>
                             <Show when=move || is_saving.get()>
                                 <div class="flex items-center gap-x-2 text-sm text-gray-500 dark:text-gray-400">
