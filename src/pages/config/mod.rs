@@ -15,10 +15,11 @@ use crate::{
     components::{
         form::input::{Duration, Rate},
         icon::{
-            IconCircleStack, IconCodeBracket, IconHandRaised, IconInbox, IconInboxArrowDown,
-            IconInboxStack, IconKey, IconServer, IconServerStack, IconShieldCheck, IconSignal,
+            IconAdjustmentsHorizontal, IconBeaker, IconChartBarSquare, IconCircleStack,
+            IconCodeBracket, IconHandRaised, IconInbox, IconInboxArrowDown, IconInboxStack,
+            IconKey, IconServer, IconServerStack, IconShieldCheck, IconSignal,
         },
-        layout::{LayoutBuilder, MenuItem},
+        layout::{LayoutBuilder, MenuItem, LayoutConfig},
     },
     core::{
         form::{FormData, FormValue},
@@ -595,5 +596,49 @@ impl LayoutBuilder {
             .raw_route(manage_url)
             .insert(true)
             .menu_items
+    }
+}
+
+#[component]
+pub fn Config() -> impl IntoView {
+    let permissions = use_context::<Memo<Option<Permissions>>>().unwrap();
+    let location = use_location();
+    let path = create_memo(move |_| location.pathname.get());
+
+    view! {
+        <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                    <div class="h-52 flex flex-col justify-center items-center bg-gradient-to-br from-blue-600 to-blue-700 rounded-t-xl">
+                        <IconAdjustmentsHorizontal class="size-28 text-white"/>
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-300">
+                            Layout Configuration
+                        </h3>
+                        <p class="mt-3 text-gray-500 dark:text-gray-400">
+                            Customize the appearance of your web management interface by changing the logo and title
+                        </p>
+                    </div>
+                    <div class="mt-auto flex border-t border-gray-200 divide-x divide-gray-200 dark:border-gray-700 dark:divide-gray-700">
+                        <a
+                            class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-es-xl bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                            href="/settings/layout"
+                        >
+                            Configure
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+#[component]
+pub fn LayoutConfigPage() -> impl IntoView {
+    view! {
+        <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+            <LayoutConfig/>
+        </div>
     }
 }

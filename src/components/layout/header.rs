@@ -17,19 +17,28 @@ use crate::{
     STATE_STORAGE_KEY, VERSION_NAME,
 };
 use web_sys::wasm_bindgen::JsCast;
+use super::config::LayoutConfig;
 
 #[component]
 pub fn Header(permissions: Memo<Option<Permissions>>) -> impl IntoView {
     let show_action_dropdown = RwSignal::new(false);
     let show_account_dropdown = RwSignal::new(false);
     let auth_token = use_context::<RwSignal<AccessToken>>().unwrap();
+    let (config, _) = create_signal(LayoutConfig::default());
+
+    // Load config from storage
+    create_effect(move |_| {
+        if let Ok(stored_config) = gloo_storage::LocalStorage::get::<LayoutConfig>("layout_config") {
+            config.set(stored_config);
+        }
+    });
 
     view! {
         <header class="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 sm:py-4 lg:ps-64 dark:bg-gray-800 dark:border-gray-700">
             <nav class="flex basis-full items-center w-full mx-auto px-4 sm:px-6 md:px-8">
 
                 <div class="me-5 lg:me-0 lg:hidden">
-                    <img src="/logo.svg" title=VERSION_NAME/>
+                    <img src=move || config.get().logo_url title=VERSION_NAME/>
                 </div>
 
                 <div class="w-full flex items-center justify-end sm:justify-between sm:gap-x-3 sm:order-3">

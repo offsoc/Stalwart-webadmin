@@ -26,7 +26,10 @@ use pages::{
         app_password::{AppPasswordCreate, AppPasswords},
         mfa::ManageMfa,
     },
-    config::edit::DEFAULT_SETTINGS_URL,
+    config::{
+        edit::DEFAULT_SETTINGS_URL,
+        LayoutConfigPage,
+    },
     directory::{dns::DnsDisplay, edit::PrincipalEdit, list::PrincipalList},
     enterprise::{
         dashboard::Dashboard,
@@ -465,6 +468,17 @@ pub fn App() -> impl IntoView {
                     <ProtectedRoute
                         path="/search"
                         view=SettingsSearch
+                        redirect_path="/login"
+                        condition=move || {
+                            permissions
+                                .get()
+                                .is_some_and(|p| { p.has_access(Permission::SettingsList) })
+                        }
+                    />
+
+                    <ProtectedRoute
+                        path="/layout"
+                        view=LayoutConfigPage
                         redirect_path="/login"
                         condition=move || {
                             permissions

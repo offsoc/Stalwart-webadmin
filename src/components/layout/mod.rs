@@ -7,6 +7,7 @@
 pub mod header;
 pub mod sidebar;
 pub mod toggle;
+pub mod config;
 
 use std::hash::{DefaultHasher, Hash, Hasher};
 
@@ -24,6 +25,11 @@ use crate::{
         Permissions,
     },
 };
+
+use header::Header;
+use sidebar::SideBar;
+use toggle::Toggle;
+use config::LayoutConfig;
 
 pub struct LayoutBuilder {
     pub menu_items: Vec<MenuItem>,

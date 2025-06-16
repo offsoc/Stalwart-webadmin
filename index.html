@@ -23,7 +23,33 @@
     <link data-trunk rel="css" href="/style/output.css" />
     <link data-trunk rel="copy-file" href="./src/assets/logo.svg" />
 
-    <title>Stalwart Management</title>
+    <title id="dynamic-title">Stalwart Management</title>
+    <script>
+        // Load title from localStorage on page load
+        window.addEventListener('load', function() {
+            const storedConfig = localStorage.getItem('layout_config');
+            if (storedConfig) {
+                try {
+                    const config = JSON.parse(storedConfig);
+                    document.getElementById('dynamic-title').textContent = config.title;
+                } catch (e) {
+                    console.error('Failed to parse layout config:', e);
+                }
+            }
+        });
+
+        // Listen for storage changes
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'layout_config') {
+                try {
+                    const config = JSON.parse(e.newValue);
+                    document.getElementById('dynamic-title').textContent = config.title;
+                } catch (e) {
+                    console.error('Failed to parse layout config:', e);
+                }
+            }
+        });
+    </script>
 </head>
 
 <body>
